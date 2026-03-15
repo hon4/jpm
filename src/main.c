@@ -29,5 +29,5 @@ void show_help() {
 }
 
 void show_ver() {
-	printf("JPM VER");
+	printf("JPM (JLinux Package Manager)\n=============================\nVersion: %s\nCoded by: hon\nLanguage: C\n\n",JPM_VERSION);
 }
