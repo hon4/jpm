@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 }
 
 void show_help() {
-	printf("JPM\n====\nUsage: jpm [OPTIONS] <command> [OPTIONS]\n\nOptions:\n  -h, --help     Show this help message and exit\n  -v, --version  Print version information and exit\n\nCommands:\n  add <pkgname>    Install a package\n  del <pkgname>    Remove a package\n\n");
+	printf("JPM\n====\nUsage: jpm [OPTIONS] <command> [OPTIONS]\nUsage: jpm <add/del> <name>\n\nOptions:\n  -h, --help     Show this help message and exit\n  -v, --version  Print version information and exit\n\nCommands:\n  add <pkgname>    Install a package\n  del <pkgname>    Remove a package\n\n");
 }
 
 void show_ver() {
