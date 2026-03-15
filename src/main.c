@@ -11,6 +11,10 @@ int main(int argc, char *argv[]) {
 		printf("JPM: No command. Type -h to show help.\n");
 		return 1;
 	}
+	
+	char *command;
+	char *pkg_name;
+	
 	int i;
 	for (i = 1; i < argc; i++) {
 		if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
@@ -20,6 +24,12 @@ int main(int argc, char *argv[]) {
 		if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0) {
 			show_ver();
 			return 0;
+		}
+		if (argv[i][0] != '-') { /* Not starting with "-", it's a command not an option. */
+			command = argv[i];
+			i++; /* Increase i by one and Get package name (the next). Only for add/del/update. Future check what command eg jpm upgrade/update dont need pkg name. */
+			pkg_name = argv[i];
+			printf("Cmd: %s\nPkg: %s\n",command,pkg_name);
 		}
 	}
 	printf("JPM\n");
