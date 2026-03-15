@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define JPM_VERSION "1.0.0"
+#define JPM_VERSION "0.0.1"
 
 void show_help();
 void show_ver();
