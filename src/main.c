@@ -2,7 +2,31 @@
 
 #define JPM_VERSION "1.0.0"
 
-int main() {
+void show_help();
+void show_ver();
+
+int main(int argc, char *argv[]) {
+	if (argc > 1) {
+		int i;
+		for (i = 1; i < argc; i++) {
+			if (strcmp(argv[i], "-h") == 0) {
+				show_help();
+				return 0;
+			}
+			if (strcmp(argv[i], "-v") == 0) {
+				show_ver();
+				return 0;
+			}
+		}
+	}
 	printf("JPM\n");
 	return 0;
+}
+
+void show_help() {
+	printf("JPM");
+}
+
+void show_ver() {
+	printf("JPM VER");
 }
