@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #define JPM_VERSION "1.0.0"
 
