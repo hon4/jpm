@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <string.h>
+#include "inc/list.h"
 
 #define JPM_VERSION "0.0.1"
+
+#define PKG_FILE "/etc/jpm/pkgs"
+#define PKG_MAX_LINE 256
 
 void show_help();
 void show_ver();
@@ -32,7 +36,11 @@ int main(int argc, char *argv[]) {
 			printf("Cmd: %s\nPkg: %s\n",command,pkg_name);
 		}
 	}
-	printf("JPM\n");
+	
+	if (strcmp(command, "list") == 0) {
+		jpm_list_pkgs();
+	}
+	
 	return 0;
 }
 
