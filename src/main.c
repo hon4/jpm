@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
 			if (argv[i][0] == '-') {
 				args_handler(argc, argv, i);
 			}
-			printf("Cmd: %s\nPkg: %s\n",command,pkg_name);
+			printf("Cmd: %s\nPkg: %s\n",command,pkg_name); /* debug */
 		}
 	}
 	
