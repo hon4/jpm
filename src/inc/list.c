@@ -6,7 +6,7 @@
 
 void jpm_list_pkgs() {
 	printf("JPM: Installed Packages List\n=============================\n\n");
-	
+
 	FILE *fp = fopen(PKG_FILE, "r");
 	if (!fp) {
 		perror("ERROR: Cannot open required file: " PKG_FILE);
