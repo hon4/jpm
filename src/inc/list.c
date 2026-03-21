@@ -1,15 +1,15 @@
 #include "list.h"
 #include <stdio.h>
+#include "config.h"
 
-#define PKG_FILE "/etc/jpm/pkgs"
 #define PKG_MAX_LINE 256
 
 void jpm_list_pkgs() {
 	printf("JPM: Installed Packages List\n=============================\n\n");
 
-	FILE *fp = fopen(PKG_FILE, "r");
+	FILE *fp = fopen(JPM_PKG_FILE, "r");
 	if (!fp) {
-		perror("ERROR: Cannot open required file: " PKG_FILE);
+		perror("ERROR: Cannot open required file: " JPM_PKG_FILE);
 		return;
 	}
 
