@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "inc/list.h"
+#include "inc/downloadfile.h"
+#include "inc/gzdecompress.h"
 
 #define JPM_VERSION "0.0.1"
 
@@ -56,6 +58,17 @@ void args_handler(int argc, char *argv[], int i) {
 	}
 	if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0) {
 		show_ver();
+		exit(0);
+	}
+	if (strcmp(argv[i], "-t") == 0) {
+		download_file("http://24.24.24.15/jlinux/v1.0/main/x86_64/_index.gz", "_index.gz"); /* ITS OK */
+		const char *gzfile = "_index.gz";
+		const char *outfile = "_index";
+		int ret = gzdecompress(gzfile, outfile);
+		if (ret == 0)
+			printf("Decompression successful: %s -> %s\n", gzfile, outfile);
+		else
+			printf("Decompression failed with code %d\n", ret);
 		exit(0);
 	}
 }
