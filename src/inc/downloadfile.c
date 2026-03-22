@@ -1,3 +1,4 @@
+#include "downloadfile.h"
 #include <stdio.h>
 
 int download_file(const char *url, const char *outfile) {
