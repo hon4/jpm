@@ -1,6 +1,5 @@
 #include "ensure_dir.h"
 #include <sys/stat.h>
-#include <stdio.h>
 
 int ensure_dir(const char *d) {
 	struct stat st;
