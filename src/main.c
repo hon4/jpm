@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 			command = argv[i];
 			i++; /* Increase i by one and Get package name (the next). Only for add/del/update. Future check what command eg jpm upgrade/update dont need pkg name. */
 			pkg_name = argv[i];
-			if (argv[i][0] == '-') {
+			if (argv[i] != NULL && argv[i][0] == '-') {
 				args_handler(argc, argv, i);
 			}
 			printf("Cmd: %s\nPkg: %s\n",command,pkg_name); /* debug */
