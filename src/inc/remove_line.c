@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int remove_line(const char *filename, int line_to_remove) {
+int remove_line(const char *filename, const char *line_content) {
 	FILE *file = fopen(filename, "r");
 	if (!file) {
 		perror("Error opening file");
@@ -17,19 +17,21 @@ int remove_line(const char *filename, int line_to_remove) {
 	}
 
 	char buffer[1024];
-	int current_line = 1;
 
 	while (fgets(buffer, sizeof(buffer), file)) {
-		if (current_line != line_to_remove) {
-			fputs(buffer, temp);
+		/* Remove newline character for comparison */
+		buffer[strcspn(buffer, "\r\n")] = 0;
+
+		/* Only write lines that do NOT match the target */
+		if (strcmp(buffer, line_content) != 0) {
+			fprintf(temp, "%s\n", buffer);
 		}
-		current_line++;
 	}
 
 	fclose(file);
 	fclose(temp);
 
-	/* Replace original file */
+	/* Replace original file with temp file */
 	if (remove(filename) != 0) {
 		perror("Error removing original file");
 		return -1;
