@@ -6,6 +6,7 @@
 #include "inc/gzdecompress.h"
 #include "inc/update_repoindex.h"
 #include "inc/install_jpm.h"
+#include "inc/delete_pkg.h"
 
 #define JPM_VERSION "0.0.1"
 
@@ -42,10 +43,20 @@ int main(int argc, char *argv[]) {
 		
 	} else if (strcmp(command, "add") == 0) {
 		if (pkg_name != NULL && strlen(pkg_name) != 0) {
-			if (install_jpm(pkg_name, NULL)) {
+			if (add_jpm(pkg_name, NULL)) {
 				printf("JPM: Error installing package.\n");
 			} else {
 				printf("JPM: Package has been installed successfully.\n");
+			}
+		} else {
+			printf("JPM: No package specified.\n");
+		}
+	} else if (strcmp(command, "del") == 0) {
+		if (pkg_name != NULL && strlen(pkg_name) != 0) {
+			if (delete_pkg(pkg_name)) {
+				printf("JPM: Error removing package.\n");
+			} else {
+				printf("JPM: Package has been removed successfully.\n");
 			}
 		} else {
 			printf("JPM: No package specified.\n");
