@@ -8,6 +8,6 @@ jpm_SOURCES = main.c \
 		inc/update_repoindex.c \
 		inc/ensure_dir.c \
 		inc/install_jpm.c \
-		inc/append2dir.c
+		inc/append2file.c
 
 jpm_LDADD = -lz
