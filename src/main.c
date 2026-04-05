@@ -4,6 +4,8 @@
 #include "inc/list.h"
 #include "inc/downloadfile.h"
 #include "inc/gzdecompress.h"
+#include "inc/update_repoindex.h"
+#include "inc/install_jpm.h"
 
 #define JPM_VERSION "0.0.1"
 
@@ -36,6 +38,18 @@ int main(int argc, char *argv[]) {
 	
 	if (strcmp(command, "list") == 0) {
 		jpm_list_pkgs();
+	} else if (strcmp(command, "update") == 0) {
+		
+	} else if (strcmp(command, "add") == 0) {
+		if (pkg_name != NULL && strlen(pkg_name) != 0) {
+			if (install_jpm(pkg_name, NULL)) {
+				printf("JPM: Error installing package.\n");
+			} else {
+				printf("JPM: Package has been installed successfully.\n");
+			}
+		} else {
+			printf("JPM: No package specified.\n");
+		}
 	} else {
 		printf("JPM: Unknown command '%s'. Type -h to show help.\n", command);
 	}
@@ -44,7 +58,7 @@ int main(int argc, char *argv[]) {
 }
 
 void show_help() {
-	printf("JPM\n====\nUsage: jpm [OPTIONS] <command> [OPTIONS]\nUsage: jpm <add/del> <name>\n\nOptions:\n  -h, --help     Show this help message and exit\n  -v, --version  Print version information and exit\n\nCommands:\n  add <pkgname>    Install a package\n  del <pkgname>    Remove a package\n  list             List all the installed packages on this machine.\n");
+	printf("JPM\n====\nUsage: jpm [OPTIONS] <command> [OPTIONS]\nUsage: jpm <add/del> <name>\n\nOptions:\n  -h, --help     Show this help message and exit\n  -v, --version  Print version information and exit\n\nCommands:\n  add <pkgname>    Install a package\n  del <pkgname>    Remove a package\n  list             List all the installed packages on this machine.\n  update         Temp use.\n\n");
 }
 
 void show_ver() {
@@ -61,14 +75,15 @@ void args_handler(int argc, char *argv[], int i) {
 		exit(0);
 	}
 	if (strcmp(argv[i], "-t") == 0) {
-		download_file("http://24.24.24.15/jlinux/v1.0/main/x86_64/_index.gz", "_index.gz"); /* ITS OK */
-		const char *gzfile = "_index.gz";
+		/*download_file("http://24.24.24.15/jlinux/v1.0/main/x86_64/_index.gz", "_index.gz"); /* ITS OK */
+		/*const char *gzfile = "_index.gz";
 		const char *outfile = "_index";
 		int ret = gzdecompress(gzfile, outfile);
 		if (ret == 0)
 			printf("Decompression successful: %s -> %s\n", gzfile, outfile);
 		else
-			printf("Decompression failed with code %d\n", ret);
+			printf("Decompression failed with code %d\n", ret);*/
+		get_repofiles();
 		exit(0);
 	}
 }
