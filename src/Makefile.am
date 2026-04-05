@@ -6,6 +6,7 @@ jpm_SOURCES = main.c \
 		inc/downloadfile.c \
 		inc/gzdecompress.c \
 		inc/update_repoindex.c \
-		inc/ensure_dir.c
+		inc/ensure_dir.c \
+		inc/install_jpm.c
 
 jpm_LDADD = -lz
