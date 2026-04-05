@@ -1,6 +1,7 @@
 #include "remove_line.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int remove_line(const char *filename, const char *line_content) {
 	FILE *file = fopen(filename, "r");
