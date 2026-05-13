@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
 bin_PROGRAMS = jpm
-jpm_SOURCES = main.c \
+jpm_SOURCES = main.cpp \
 		inc/list.c \
 		inc/downloadfile.c \
 		inc/gzdecompress.c \
