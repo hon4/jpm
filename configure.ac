@@ -1,7 +1,7 @@
 AC_INIT([jpm], [0.0.1], [greek.team.blog2@gmail.com])
 AM_INIT_AUTOMAKE
 LT_INIT
-AC_PROG_CC
+AC_PROG_CXX
 
 # Check for zlib
 AC_CHECK_LIB([z], [gzopen], [have_zlib=yes], [have_zlib=no])
