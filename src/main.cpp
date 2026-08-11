@@ -1,12 +1,6 @@
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
-#include "inc/list.h"
-#include "inc/downloadfile.h"
-#include "inc/gzdecompress.h"
-#include "inc/update_repoindex.h"
-#include "inc/install_jpm.h"
-#include "inc/delete_pkg.h"
 
 #define JPM_VERSION "0.0.1"
 
