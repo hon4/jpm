@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
     }
 
 	// Temporary index file
-    std::string indexFile = TMP_DIR + "jpm-index.txt";
+    std::string indexFile = TMP_DIR + "index.txt";
 
     std::cout << "Downloading package index...\n";
 
