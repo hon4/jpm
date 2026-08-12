@@ -10,7 +10,8 @@ Example Repository URL:
 `http://jlinux.net/repo`
 
 * repo (dir)
-  * index.txt (file)
-  * pkg2 (dir)
-    * versions.txt (file)
-    * 0.0.2.jpm (file)
+  * amd64 (dir)
+    * index.txt (file)
+    * pkg2 (dir)
+      * versions.txt (file)
+      * 0.0.2.jpm (file)
