@@ -69,18 +69,7 @@ inc/download_file.o: inc/download_file.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/14.2.0/cstddef /usr/include/stddef.h \
  /usr/include/c++/14.2.0/bits/uses_allocator.h \
  /usr/include/c++/14.2.0/bits/uses_allocator_args.h \
- /usr/include/c++/14.2.0/tuple /usr/include/curl/curl.h \
- /usr/include/curl/curlver.h /usr/include/curl/system.h \
- /usr/include/sys/types.h /usr/include/endian.h \
- /usr/include/fortify/sys/select.h /usr/include/sys/select.h \
- /usr/include/fortify/sys/socket.h /usr/include/sys/socket.h \
- /usr/include/bits/socket.h /usr/include/fortify/fortify-headers.h \
- /usr/include/limits.h /usr/include/time.h /usr/include/sys/time.h \
- /usr/include/curl/easy.h /usr/include/curl/multi.h \
- /usr/include/curl/curl.h /usr/include/curl/urlapi.h \
- /usr/include/curl/options.h /usr/include/curl/header.h \
- /usr/include/curl/websockets.h /usr/include/curl/mprintf.h \
- /usr/include/stdarg.h /usr/include/c++/14.2.0/iostream \
+ /usr/include/c++/14.2.0/tuple /usr/include/c++/14.2.0/iostream \
  /usr/include/c++/14.2.0/ostream /usr/include/c++/14.2.0/ios \
  /usr/include/c++/14.2.0/exception \
  /usr/include/c++/14.2.0/bits/exception_ptr.h \
@@ -91,7 +80,7 @@ inc/download_file.o: inc/download_file.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/14.2.0/ext/atomicity.h \
  /usr/include/c++/14.2.0/x86_64-alpine-linux-musl/bits/gthr.h \
  /usr/include/c++/14.2.0/x86_64-alpine-linux-musl/bits/gthr-default.h \
- /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/pthread.h /usr/include/sched.h /usr/include/time.h \
  /usr/include/c++/14.2.0/x86_64-alpine-linux-musl/bits/atomic_word.h \
  /usr/include/c++/14.2.0/bits/locale_classes.h \
  /usr/include/c++/14.2.0/bits/locale_classes.tcc \
@@ -201,29 +190,6 @@ inc/download_file.hpp:
 /usr/include/c++/14.2.0/bits/uses_allocator.h:
 /usr/include/c++/14.2.0/bits/uses_allocator_args.h:
 /usr/include/c++/14.2.0/tuple:
-/usr/include/curl/curl.h:
-/usr/include/curl/curlver.h:
-/usr/include/curl/system.h:
-/usr/include/sys/types.h:
-/usr/include/endian.h:
-/usr/include/fortify/sys/select.h:
-/usr/include/sys/select.h:
-/usr/include/fortify/sys/socket.h:
-/usr/include/sys/socket.h:
-/usr/include/bits/socket.h:
-/usr/include/fortify/fortify-headers.h:
-/usr/include/limits.h:
-/usr/include/time.h:
-/usr/include/sys/time.h:
-/usr/include/curl/easy.h:
-/usr/include/curl/multi.h:
-/usr/include/curl/curl.h:
-/usr/include/curl/urlapi.h:
-/usr/include/curl/options.h:
-/usr/include/curl/header.h:
-/usr/include/curl/websockets.h:
-/usr/include/curl/mprintf.h:
-/usr/include/stdarg.h:
 /usr/include/c++/14.2.0/iostream:
 /usr/include/c++/14.2.0/ostream:
 /usr/include/c++/14.2.0/ios:
@@ -238,6 +204,7 @@ inc/download_file.hpp:
 /usr/include/c++/14.2.0/x86_64-alpine-linux-musl/bits/gthr-default.h:
 /usr/include/pthread.h:
 /usr/include/sched.h:
+/usr/include/time.h:
 /usr/include/c++/14.2.0/x86_64-alpine-linux-musl/bits/atomic_word.h:
 /usr/include/c++/14.2.0/bits/locale_classes.h:
 /usr/include/c++/14.2.0/bits/locale_classes.tcc:
