@@ -1,33 +1,25 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <sstream>
 #include <cstdlib>
 #include <filesystem>
 #include "inc/show_ver_help.hpp"
+#include "inc/download_file.hpp"
 
 //#define JPM_VERSION "0.0.1" moved to show_ver_help.cpp
 
 namespace fs = std::filesystem;
 
-const std::string REPO = "http://192.168.1.4/repo";
+const std::string REPO = "http://192.168.1.4/repo/amd64";
 const std::string ROOT = "/fakeroot";
 const std::string PKG_EXT = ".jpm";
 const std::string TMP_DIR = "/tmp/jpm/";
 
-bool downloadFile(const std::string& url, const std::string& output) {
-    std::string command = "curl -L -f -sS -o \"" + output + "\" \"" + url + "\"";
-
-    int result = std::system(command.c_str());
-
-    return result == 0;
-}
-
 int main(int argc, char* argv[]) {
-	/*if (argc == 1) {
-		printf("JPM: No command. Type -h to show help.\n");
-		return 1;
-	}*/
+    /*if (argc == 1) {
+        printf("JPM: No command. Type -h to show help.\n");
+        return 1;
+    }*/
 
     // Check command
     if (argc != 3 || std::string(argv[1]) != "add") {
@@ -37,7 +29,7 @@ int main(int argc, char* argv[]) {
 
     std::string packageName = argv[2];
 
-	// Make sure TMP_DIR exists
+    // Make sure TMP_DIR exists
     try {
         fs::create_directories(TMP_DIR);
     } catch (const fs::filesystem_error& e) {
@@ -45,12 +37,15 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-	// Temporary index file
+    // ------------------------------------------------------------
+    // Download main package index
+    // ------------------------------------------------------------
+
     std::string indexFile = TMP_DIR + "index.txt";
 
     std::cout << "Downloading package index...\n";
 
-    if (!downloadFile(REPO + "/index.txt", indexFile)) {
+    if (!download_file(REPO + "/index.txt", indexFile)) {
         std::cerr << "Error: could not download index.txt\n";
         return 1;
     }
@@ -63,76 +58,157 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Find package
+    // ------------------------------------------------------------
+    // Find package name
+    // ------------------------------------------------------------
+
     std::string line;
-    std::string packageFile;
+    bool packageFound = false;
 
     while (std::getline(file, line)) {
         // Remove possible CR in CRLF files
         if (!line.empty() && line.back() == '\r')
             line.pop_back();
 
-        // Package names are assumed to be:
-        // name-version
-        //
-        // For now, simply check whether the line starts
-        // with the requested package name.
-
-        if (line.rfind(packageName + "-", 0) == 0)
-        {
-            packageFile = line;
+        // Exact package name match
+        if (line == packageName) {
+            packageFound = true;
             break;
         }
     }
 
     file.close();
 
-    if (packageFile.empty()) {
+    if (!packageFound) {
         std::cerr << "Error: package '" << packageName << "' was not found\n";
+        std::remove(indexFile.c_str());
         return 1;
     }
 
-    std::cout << "Found package: " << packageFile << "\n";
+    std::cout << "Found package: " << packageName << "\n";
 
+    // ------------------------------------------------------------
+    // Download package version index
+    // ------------------------------------------------------------
+
+    std::string versionIndexFile = TMP_DIR + packageName + "-versions.txt";
+
+    std::string versionIndexURL = REPO + "/" + packageName + "/versions.txt";
+
+    std::cout << "Downloading version list...\n";
+
+    if (!download_file(versionIndexURL, versionIndexFile)) {
+        std::cerr << "Error: could not download versions.txt\n";
+        std::remove(indexFile.c_str());
+        return 1;
+    }
+
+    // Open version index
+    std::ifstream versionFile(versionIndexFile);
+
+    if (!versionFile) {
+        std::cerr << "Error: could not open versions.txt\n";
+        std::remove(indexFile.c_str());
+        std::remove(versionIndexFile.c_str());
+        return 1;
+    }
+
+    // ------------------------------------------------------------
+    // Find latest version
+    // ------------------------------------------------------------
+
+    std::string version;
+    std::string latestVersion;
+
+    while (std::getline(versionFile, version)) {
+        // Remove possible CR in CRLF files
+        if (!version.empty() && version.back() == '\r')
+            version.pop_back();
+
+        if (!version.empty()) {
+            latestVersion = version;
+        }
+    }
+
+    versionFile.close();
+
+    if (latestVersion.empty()) {
+        std::cerr << "Error: no versions available for package '" << packageName << "'\n";
+
+        std::remove(indexFile.c_str());
+        std::remove(versionIndexFile.c_str());
+
+        return 1;
+    }
+
+    std::cout << "Latest version: " << latestVersion << "\n";
+
+    // ------------------------------------------------------------
     // Download package
-    std::string localPackage = TMP_DIR + packageFile + PKG_EXT;
+    // ------------------------------------------------------------
 
-    std::string packageURL = REPO + "/" + packageFile + PKG_EXT;
+    std::string packageFile = packageName + "-" + latestVersion + PKG_EXT;
 
-    std::cout << "Downloading " << packageFile << PKG_EXT << "...\n";
+    std::string localPackage = TMP_DIR + packageFile;
 
-    if (!downloadFile(packageURL, localPackage)) {
+    std::string packageURL = REPO + "/" + packageName + "/" + latestVersion + PKG_EXT;
+
+    std::cout << "Downloading " << packageFile << "...\n";
+
+    if (!download_file(packageURL, localPackage)) {
         std::cerr << "Error: could not download package\n";
+
+        std::remove(indexFile.c_str());
+        std::remove(versionIndexFile.c_str());
+
         return 1;
     }
 
-    // Make sure /fakeroot exists
+    // ------------------------------------------------------------
+    // Make sure ROOT exists
+    // ------------------------------------------------------------
+
     try {
         fs::create_directories(ROOT);
     } catch (const fs::filesystem_error& e) {
-        std::cerr << "Error creating " << ROOT << ": "
-                  << e.what() << "\n";
+        std::cerr << "Error creating " << ROOT << ": " << e.what() << "\n";
+
+        std::remove(indexFile.c_str());
+        std::remove(versionIndexFile.c_str());
+        std::remove(localPackage.c_str());
+
         return 1;
     }
 
+    // ------------------------------------------------------------
     // Extract package
-    std::cout << "Installing package into " << ROOT << "...\n";
+    // ------------------------------------------------------------
 
-    std::string extractCommand =
-        "tar -xzf \"" + localPackage +
-        "\" -C \"" + ROOT + "\"";
+    std::cout << "Installing " << packageName << " " << latestVersion << " into " << ROOT << "...\n";
+
+    std::string extractCommand = "tar -xzf \"" + localPackage + "\" -C \"" + ROOT + "\"";
 
     int result = std::system(extractCommand.c_str());
 
     if (result != 0) {
         std::cerr << "Error: could not extract package\n";
+
+        std::remove(indexFile.c_str());
+        std::remove(versionIndexFile.c_str());
+        std::remove(localPackage.c_str());
+
         return 1;
     }
 
     std::cout << "Package installed successfully!\n";
 
-	std::remove(indexFile.c_str());
-	std::remove(localPackage.c_str());
+    // ------------------------------------------------------------
+    // Clean up temporary files
+    // ------------------------------------------------------------
+
+    std::remove(indexFile.c_str());
+    std::remove(versionIndexFile.c_str());
+    std::remove(localPackage.c_str());
 
     return 0;
 }
