@@ -13,6 +13,7 @@ namespace fs = std::filesystem;
 const std::string REPO = "http://192.168.1.4/repo";
 const std::string ROOT = "/fakeroot";
 const std::string PKG_EXT = ".jpm";
+const std::string TMP_DIR = "/tmp/jpm/";
 
 bool downloadFile(const std::string& url, const std::string& output) {
     std::string command = "curl -L -f -sS -o \"" + output + "\" \"" + url + "\"";
@@ -36,8 +37,16 @@ int main(int argc, char* argv[]) {
 
     std::string packageName = argv[2];
 
+	// Make sure TMP_DIR exists
+    try {
+        fs::create_directories(TMP_DIR);
+    } catch (const fs::filesystem_error& e) {
+        std::cerr << "Error creating " << TMP_DIR << ": " << e.what() << "\n";
+        return 1;
+    }
+
 	// Temporary index file
-    std::string indexFile = "/tmp/jpm-index.txt";
+    std::string indexFile = TMP_DIR + "jpm-index.txt";
 
     std::cout << "Downloading package index...\n";
 
@@ -86,7 +95,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Found package: " << packageFile << "\n";
 
     // Download package
-    std::string localPackage = "/tmp/" + packageFile + PKG_EXT;
+    std::string localPackage = TMP_DIR + packageFile + PKG_EXT;
 
     std::string packageURL = REPO + "/" + packageFile + PKG_EXT;
 
@@ -121,6 +130,9 @@ int main(int argc, char* argv[]) {
     }
 
     std::cout << "Package installed successfully!\n";
+
+	std::remove(indexFile.c_str());
+	std::remove(localPackage.c_str());
 
     return 0;
 }
