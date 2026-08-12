@@ -5,7 +5,7 @@
 Repository URL:
 `http://jlinux.net/repo`
 
-* repo-dir (dir)
+* repo (dir)
   * index.txt (file)
   * pkg2 (dir)
     * versions.txt (file)
