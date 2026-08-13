@@ -29,3 +29,5 @@ rm install-sh
 rm libtool
 rm ltmain.sh
 rm missing
+rm config.guess~
+rm config.sub~
