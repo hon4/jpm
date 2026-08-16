@@ -1,5 +1,6 @@
 #include "show_ver_help.hpp"
 #include <cstdio>
+//#include "jpm_arch.hpp" //Arch is not ready
 
 #define JPM_VERSION "0.0.1"
 
@@ -9,4 +10,6 @@ void show_help() {
 
 void show_ver() {
 	printf("JPM (JLinux Package Manager)\n=============================\nVersion: %s\nCoded by: hon\nLanguage: C++\n\n",JPM_VERSION);
+	//Architecture is not ready.
+	//printf("Arch: %s\n",JPM_ARCHITECTURE);
 }

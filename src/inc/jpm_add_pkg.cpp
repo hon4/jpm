@@ -10,6 +10,7 @@ int jpm_add_pkg(std::string pkg_name) {
 
 	// Make sure TMP_DIR exists
 	if (ensure_dir_exists(TMP_DIR)) {
+		std::cerr << "JPM: Error: Temp Directory does not exist and jpm failed to create it.";
 		return 1; //Dir does not exist and program Failed to create it.
 	}
 

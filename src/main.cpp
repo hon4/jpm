@@ -37,12 +37,17 @@ int main(int argc, char* argv[]) {
 			REPO = std::string(argv[i]);
 		} else if (argv[i][0] != '-') { //Not starting with "-" it's not a parameter.
 			command = std::string(argv[i]);
-			if (i + 1 >= argc) {
-				std::cerr << "JPM: Error command \"" << command << "\" used but no package name(s) specified.\n";
+			if (command == "add") {
+				if (i + 1 >= argc) {
+					std::cerr << "JPM: Error command \"" << command << "\" used but no package name(s) specified.\n";
+					return 1;
+				}
+				i++; //next arg
+				pkgs = std::string(argv[i]);
+			} else {
+				std::cerr << "JPM: Error command \"" << command << "\" is not a valid command.\n";
 				return 1;
 			}
-			i++; //next arg
-			pkgs = std::string(argv[i]);
 
 			//multi pkg support in feature
 			/*i++; //next argument
@@ -51,6 +56,9 @@ int main(int argc, char* argv[]) {
 				pkgs += std::string(argv[i]) + " ";
 				i++; //next argument
 			}*/
+		} else {
+			std::cerr << "JPM: Error unknown command \"" << argx << "\".\n";
+			return 1;
 		}
 	}
 
