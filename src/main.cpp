@@ -8,13 +8,13 @@ int main(int argc, char* argv[]) {
 		printf("JPM: No command. Type -h to show help.\n");
 		return 1;
 	}
-	
+
 	std::string command; //Command like: add...
 	std::string pkgs; //The pkg(s) str like "pkg1 pkg2"
 
 	for (int i = 1; i < argc; ++i) {
 		std::string argx = argv[i];
-		
+
 		if (argx == "-h" || argx == "--help") {
 			show_help();
 			return 0;
@@ -28,6 +28,13 @@ int main(int argc, char* argv[]) {
 			}
 			i++; //next arg
 			ROOT = std::string(argv[i]);
+		} else if (argx == "--repo") {
+			if (i + 1 >= argc) {
+				std::cerr << "JPM: Error --repo requires one more parameter.\n";
+				return 1;
+			}
+			i++;
+			REPO = std::string(argv[i]);
 		} else if (argv[i][0] != '-') { //Not starting with "-" it's not a parameter.
 			command = std::string(argv[i]);
 			if (i + 1 >= argc) {
@@ -36,7 +43,7 @@ int main(int argc, char* argv[]) {
 			}
 			i++; //next arg
 			pkgs = std::string(argv[i]);
-			
+
 			//multi pkg support in feature
 			/*i++; //next argument
 			while (argv[i][0] != '-') {

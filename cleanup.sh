@@ -31,3 +31,7 @@ rm ltmain.sh
 rm missing
 rm config.guess~
 rm config.sub~
+rm -rf src/.deps
+rm -rf src/.libs
+rm -rf src/inc/.deps
+rm src/inc/.dirstamp

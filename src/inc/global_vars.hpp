@@ -3,7 +3,7 @@
 
 #include <string>
 
-extern const std::string REPO;
+extern std::string REPO;
 extern std::string ROOT;
 extern const std::string PKG_EXT;
 extern const std::string TMP_DIR;

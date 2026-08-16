@@ -2,9 +2,14 @@
 #include <iostream>
 
 bool download_file(const std::string& url, const std::string& output) {
-    std::string command = "curl -L -f -sS -o \"" + output + "\" \"" + url + "\"";
+	std::string command;
+	//First check if it's a local path.
+	if (url[0] == '/' || url[0] == '~') {
+		command = "cp " + url + " " + output;
+	} else {
+		command = "curl -L -f -sS -o \"" + output + "\" \"" + url + "\"";
+	}
+	int result = std::system(command.c_str());
 
-    int result = std::system(command.c_str());
-
-    return result == 0;
+	return result == 0;
 }
