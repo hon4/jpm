@@ -21,9 +21,9 @@ int main(int argc, char* argv[]) {
 		} else if (argx == "-v" || argx == "--version") {
 			show_ver();
 			return 0;
-		} else if (argx == "--in-root") {
+		} else if (argx == "--root") {
 			if (i + 1 >= argc) {
-				std::cerr << "JPM: Error --in-root requires one more parameter.\n";
+				std::cerr << "JPM: Error --root requires one more parameter.\n";
 				return 1;
 			}
 			i++; //next arg
