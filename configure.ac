@@ -1,4 +1,4 @@
-AC_INIT([jpm], [0.0.1], [greek.team.blog2@gmail.com])
+AC_INIT([jpm], [0.0.2])
 AM_INIT_AUTOMAKE
 LT_INIT
 AC_PROG_CXX
