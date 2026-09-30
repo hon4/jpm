@@ -1,6 +1,6 @@
 # JPM (JLinux Package Manager)
 
-Current status: BETA
+Current status: BETA / Expiremental
 
 ### Repository dir structure (Will Change)
 
