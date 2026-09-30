@@ -1,5 +1,7 @@
 # JPM (JLinux Package Manager)
 
+Current status: BETA
+
 ### Repository dir structure (Will Change)
 
 All .txt files must have unix LF newline and end with LF.
