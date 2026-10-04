@@ -7,7 +7,8 @@ bool download_file(const std::string& url, const std::string& output) {
 	if (url[0] == '/' || url[0] == '~') {
 		command = "cp " + url + " " + output;
 	} else {
-		command = "curl -L -f -sS -o \"" + output + "\" \"" + url + "\"";
+		//command = "curl -L -f -sS -o \"" + output + "\" \"" + url + "\"";
+		command = "wget -O \"" + output + "\" \"" + url + "\"";
 	}
 	int result = std::system(command.c_str());
 
