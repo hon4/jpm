@@ -1,7 +1,7 @@
 #include "global_vars.hpp"
 #include <string>
 
-std::string REPO = "http://127.0.0.1:8080/repo/amd64";
-std::string ROOT = "/data/data/com.termux/files/home/jpm/fakeroot";
+std::string REPO = "https://repo.jlinux.net/repo/main/amd64";
+std::string ROOT = "/";
 const std::string PKG_EXT = ".jpm";
-const std::string TMP_DIR = "/data/data/com.termux/files/home/jpm/tmp/jpm/";
+const std::string TMP_DIR = "/tmp/jpm/";
